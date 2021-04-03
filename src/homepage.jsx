@@ -28,12 +28,15 @@ class Homepage extends React.Component {
             password: this.state.password
           };
       
-          axios.post(`https://houtside.app.n8n.cloud/webhook/check`, { params },{
+          axios.post(`https://houtside.app.n8n.cloud/webhook/new`, { params },{
             headers: {
                 "Access-Control-Allow-Origin": "*"
             }
-          }          )
+          }        )
             .then(res => {
+                if(res){
+                    this.setState({node: res[0].result})
+                }
               console.log(res);
               console.log(res.data);
             })
@@ -60,7 +63,7 @@ class Homepage extends React.Component {
                 <label htmlFor="floatingPassword">Define a password</label>
                 </div>
                 <button onClick={this.handleSubmit} className="w-100 btn btn-lg btn-primary" type="submit">Get a private link</button>
-                <p className="mt-5 mb-3 text-muted">© 2017–2021 - <a href="https://tally.so/r/mKzoKn" target="_blank">Send a feedback</a></p>
+                <p className="mt-5 mb-3 text-muted">© 2017–2021 - <a href="https://tally.so/r/mKzoKn" target="_blank" rel="noreferrer" >Send a feedback</a></p>
             </form> :
             <div className="row align-items-center">
                 <div className="col-4 mx-auto">
@@ -68,7 +71,7 @@ class Homepage extends React.Component {
                     </div>
                     <b className="mb-2 text-center">Private url</b>
                     <div className="bg-light border rounded-3 p-3 mt-2">
-                        <a href="abc">{this.state.node}</a>
+                        <a href={this.state.node}>{this.state.node}</a>
                     </div>
                 </div>
             </div>

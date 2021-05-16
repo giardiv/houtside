@@ -8,10 +8,6 @@ import { useState } from 'react';
 import axios from 'axios';
 
 
-
-const domain = "tocato.co";
-
-
 export default function Wall() {
     // We can use the `useParams` hook here to access
     // the dynamic pieces of the URL.

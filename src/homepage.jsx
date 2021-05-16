@@ -1,8 +1,9 @@
 
 import React from 'react';
-import logo from './scene.png';
+import logo from './logo_1.png';
 import axios from 'axios';
 
+const domain = "https://tocato.co";
 
 
 class Homepage extends React.Component {
@@ -11,12 +12,13 @@ class Homepage extends React.Component {
         this.state = {
             url: '',
             password: '',
-            node: 'abc'
+            node: null
         };
     
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+    
     handleChange(e) {
         this.setState({ [e.target.name] : e.target.value });
      }
@@ -27,18 +29,15 @@ class Homepage extends React.Component {
             url: this.state.url,
             password: this.state.password
           };
+          let axiosInstance = axios.create({
+            baseURL: 'https://glacial-garden-78561.herokuapp.com/https://tocato.herokuapp.com/'
+          });
       
-          axios.post(`https://houtside.app.n8n.cloud/webhook/new`, { params },{
-            headers: {
-                "Access-Control-Allow-Origin": "*"
-            }
-          }        )
+          axiosInstance.post(`/webhook/new`, params)
             .then(res => {
                 if(res){
-                    this.setState({node: res[0].result})
+                    this.setState({node: res.data[0].node})
                 }
-              console.log(res);
-              console.log(res.data);
             })
         e.preventDefault();
      }
@@ -47,10 +46,10 @@ class Homepage extends React.Component {
       return(
       <div className="container h-100">
         <div className="row align-items-center h-100">
-            {this.state.node ?
+            {!this.state.node ?
             <form className="form-signin text-center">
-                <img className="mb-4" src={logo} alt="houtsi.de logo" width="72"/>
-                <h1 className="h3 mb-3 fw-normal">Add password to you url</h1>
+                <img className="mb-5" src={logo} alt="houtsi.de logo" width="120"/>
+                <h1 className="h4 mb-3 fw-normal">Add a password to your url</h1>
 
                 <div className="form-floating">
                 <input type="url" className="form-control" id="floatingInput" name="url" placeholder="my-private-link.com"
@@ -71,7 +70,7 @@ class Homepage extends React.Component {
                     </div>
                     <b className="mb-2 text-center">Private url</b>
                     <div className="bg-light border rounded-3 p-3 mt-2">
-                        <a href={this.state.node}>{this.state.node}</a>
+                        <a href={domain + "/" + this.state.node}>{domain + "/" + this.state.node}</a>
                     </div>
                 </div>
             </div>

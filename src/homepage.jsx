@@ -12,7 +12,8 @@ class Homepage extends React.Component {
         this.state = {
             url: '',
             password: '',
-            node: null
+            node: null,
+            loading: false
         };
     
         this.handleChange = this.handleChange.bind(this);
@@ -25,6 +26,7 @@ class Homepage extends React.Component {
      handleSubmit(e) {
         console.log(this.state.url);
         console.log(this.state.password);
+        this.setState({loading:true})
         const params = {
             url: this.state.url,
             password: this.state.password
@@ -61,7 +63,14 @@ class Homepage extends React.Component {
                 onChange={this.handleChange} required/>
                 <label htmlFor="floatingPassword">Define a password</label>
                 </div>
-                <button onClick={this.handleSubmit} className="w-100 btn btn-lg btn-primary" type="submit">Get a private link</button>
+                { this.state.loading ?
+                    <button class="w-100 btn btn-lg btn-primary" type="button" disabled>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        <span class="visually-hidden">Loading...</span>
+                    </button>
+                    :
+                    <button onClick={this.handleSubmit} className="w-100 btn btn-lg btn-primary" type="submit"  { ...( (!this.state.url || !this.state.password) && { disabled: true } ) }>Get a private link</button>    
+                }
                 <p className="mt-5 mb-3 text-muted">© 2017–2021 - <a href="https://tally.so/r/mKzoKn" target="_blank" rel="noreferrer" >Send a feedback</a></p>
             </form> :
             <div className="row align-items-center">

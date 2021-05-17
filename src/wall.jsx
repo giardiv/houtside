@@ -13,10 +13,13 @@ export default function Wall() {
     // the dynamic pieces of the URL.
     let { node } = useParams();
     const [link, setLink] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [wrongPw, setWrongPw] = useState(false);
     const [password, setPassword] = useState('');
 
     const handleSubmit = (e) => {
-      console.log(node)
+        setLoading(true);
+        setWrongPw(false);
         const params = {
             node: node,
             password: password
@@ -27,11 +30,14 @@ export default function Wall() {
       
           axiosInstance.post(`/webhook/check`, params)
             .then(res => {
-                if(res){
+                if(res.data.length == 1){
                   console.log(res)
                   console.log(res.data[0].result)
-                    setLink(res.data[0].result)
+                  setLink(res.data[0].result)
+                } else {
+                  setWrongPw(true);
                 }
+                setLoading(false);
             })
         e.preventDefault();
     };
@@ -42,11 +48,19 @@ export default function Wall() {
           <form className="form-check text-center">
               <img className="mb-4" src={logo} alt="houtsi.de logo" width="72"/>
               <div className="form-floating">
-                <input type="password" className="form-control" id="floatingPassword" name="password" placeholder="Password" 
+                <input type="password" className={"form-control " + (wrongPw && "is-invalid") } id="floatingPassword" name="password" placeholder="Password" 
                onChange={e =>setPassword(e.target.value)} required/>
               <label htmlFor="floatingPassword">Enter password</label>
+              <div id="floatingPasswordFeedback" className="invalid-feedback">Wrong password</div>
               </div>
-              <button onClick={handleSubmit} className="w-100 btn btn-lg btn-primary mt-3" type="submit">Access to private link</button>
+              { loading ?
+                <button className="w-100 btn btn-lg btn-primary  mt-3" type="button" disabled>
+                    <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    <span className="visually-hidden">Loading...</span>
+                </button>
+                :
+                <button onClick={handleSubmit} className="w-100 btn btn-lg btn-primary mt-3" type="submit" { ...( (!password) && { disabled: true } ) }>Access to private link</button>
+              }
               <p className="mt-5 mb-3 text-muted">© 2017–2021 - <a href="https://tally.so/r/mKzoKn" target="_blank" rel="noreferrer" >Send a feedback</a></p>
           </form> :
           <div className="row align-items-center">

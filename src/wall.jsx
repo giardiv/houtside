@@ -30,7 +30,7 @@ export default function Wall() {
       
           axiosInstance.post(`/webhook/check`, params)
             .then(res => {
-                if(res.data.length == 1){
+                if(res.data.length === 1){
                   console.log(res)
                   console.log(res.data[0].result)
                   setLink(res.data[0].result)

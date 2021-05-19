@@ -1,6 +1,6 @@
 
 import React from 'react';
-import logo from './logo_1.png';
+import logo from './logo_1.svg';
 import axios from 'axios';
 
 const domain = "https://tocato.co";
@@ -50,18 +50,18 @@ class Homepage extends React.Component {
         <div className="row align-items-center h-100">
             {!this.state.node ?
             <form className="form-signin text-center">
-                <img className="mb-5" src={logo} alt="houtsi.de logo" width="120"/>
-                <h1 className="h4 mb-3 fw-normal">Add a password to your url</h1>
+                <img className="mb-5" src={logo} alt="tocato" width="140"/>
+                <h1 className="h4 mb-3 fw-normal" width="800">Create password-protected URL</h1>
 
                 <div className="form-floating">
                 <input type="url" className="form-control" id="floatingInput" name="url" placeholder="my-private-link.com"
                     onChange={this.handleChange} required/>
-                <label htmlFor="floatingInput">Enter your private url</label>
+                <label htmlFor="floatingInput">Enter the URL</label>
                 </div>
                 <div className="form-floating">
                 <input type="password" className="form-control" id="floatingPassword" name="password" placeholder="Password" 
                 onChange={this.handleChange} required/>
-                <label htmlFor="floatingPassword">Define a password</label>
+                <label htmlFor="floatingPassword">Create a password</label>
                 </div>
                 { this.state.loading ?
                     <button class="w-100 btn btn-lg btn-primary" type="button" disabled>
@@ -69,13 +69,13 @@ class Homepage extends React.Component {
                         <span class="visually-hidden">Loading...</span>
                     </button>
                     :
-                    <button onClick={this.handleSubmit} className="w-100 btn btn-lg btn-primary" type="submit"  { ...( (!this.state.url || !this.state.password) && { disabled: true } ) }>Get a private link</button>    
+                    <button onClick={this.handleSubmit} className="w-100 btn btn-lg btn-primary" type="submit"  { ...( (!this.state.url || !this.state.password) && { disabled: true } ) }>Get password-protected link</button>    
                 }
                 <p className="mt-5 mb-3 text-muted">© 2017–2021 - <a href="https://tally.so/r/mKzoKn" target="_blank" rel="noreferrer" >Send a feedback</a></p>
             </form> :
             <div className="row align-items-center">
                 <div className="col-4 mx-auto">
-                    <div className="text-center"><img className="mb-4" src={logo} alt="houtsi.de logo" width="72"/>
+                    <div className="text-center"><img className="mb-4" src={logo} alt="tocato logo" width="72"/>
                     </div>
                     <b className="mb-2 text-center">Private url</b>
                     <div className="bg-light border rounded-3 p-3 mt-2">

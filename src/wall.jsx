@@ -2,10 +2,11 @@
 import {
     useParams
 } from "react-router-dom";
-import logo from './scene.png';
+import logo from './logo_1.svg';
 
 import { useState } from 'react';
 import axios from 'axios';
+import * as linkify from 'linkifyjs';
 
 
 export default function Wall() {
@@ -46,7 +47,7 @@ export default function Wall() {
       <div className="row align-items-center h-100">
           {!link ?
           <form className="form-check text-center">
-              <img className="mb-4" src={logo} alt="houtsi.de logo" width="72"/>
+              <img className="mb-4" src={logo} alt="tocato logo" width="72"/>
               <div className="form-floating">
                 <input type="password" className={"form-control " + (wrongPw && "is-invalid") } id="floatingPassword" name="password" placeholder="Password" 
                onChange={e =>setPassword(e.target.value)} required/>
@@ -65,11 +66,12 @@ export default function Wall() {
           </form> :
           <div className="row align-items-center">
               <div className="col-4 mx-auto">
-                  <div className="text-center"><img className="mb-4" src={logo} alt="houtsi.de logo" width="72"/>
+                  <div className="text-center"><img className="mb-4" src={logo} alt="tocato logo" width="72"/>
                   </div>
                   <b className="mb-2 text-center">Private url</b>
-                  <div className="bg-light border rounded-3 p-3 mt-2">
-                      <a href={link}>{link}</a>
+                  <a className="w-100 btn btn-lg btn-primary mt-3" href={linkify.find(link)[0].href}>Open page</a>
+                  <div className="mt-2">
+                    <a href={linkify.find(link)[0].href} target="_blank" style={{ wordBreak: "break-all"}}>{linkify.find(link)[0].href}</a>
                   </div>
               </div>
           </div>

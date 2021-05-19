@@ -71,7 +71,7 @@ export default function Wall() {
                   <b className="mb-2 text-center">Private url</b>
                   <a className="w-100 btn btn-lg btn-primary mt-3" href={linkify.find(link)[0].href}>Open page</a>
                   <div className="mt-2">
-                    <a href={linkify.find(link)[0].href} target="_blank" style={{ wordBreak: "break-all"}}>{linkify.find(link)[0].href}</a>
+                    <a href={linkify.find(link)[0].href} target="_blank" rel="noreferrer" style={{ wordBreak: "break-all"}}>{linkify.find(link)[0].href}</a>
                   </div>
               </div>
           </div>

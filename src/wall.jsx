@@ -62,7 +62,7 @@ export default function Wall() {
                 :
                 <button onClick={handleSubmit} className="w-100 btn btn-lg btn-primary mt-3" type="submit" { ...( (!password) && { disabled: true } ) }>Access to private link</button>
               }
-              <p className="mt-5 mb-3 text-muted">© 2017–2021 - <a href="https://tally.so/r/mKzoKn" target="_blank" rel="noreferrer" >Send a feedback</a></p>
+              <p className="mt-5 mb-3 text-muted"><a href="https://twitter.com/giardiv">@giardiv</a> - <a href="https://tally.so/r/mKzoKn" target="_blank" rel="noreferrer" >Send a feedback</a></p>
           </form> :
           <div className="row align-items-center">
               <div className="col-4 mx-auto">
